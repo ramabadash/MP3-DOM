@@ -102,4 +102,27 @@ function playlistDuration(id) {
     return undefined;
   }
   
-  /*END OF ASSIST FUNCTIONS*/
+/*END OF ASSIST FUNCTIONS*/
+/* START OF CREATING DOM */
+function addingSongsToDom (){
+    let songs = document.getElementById("songs");
+    const sortSongsArray = player.songs.slice().sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
+    for (let song of sortSongsArray){
+        let newSong = createSongElement(song);
+        songs.appendChild(newSong);
+    }
+}
+
+function addingPlaylistToDom (){
+    let playlists = document.getElementById("playlists");
+    const sortPlaylistArray = player.playlists.slice().sort((playlist1 , playlist2) => { return playlist1.name > playlist2.name ? 1 : -1});
+    for (let playlist of sortPlaylistArray){
+        let newPlaylist = createPlaylistElement(playlist);
+        playlists.appendChild(newPlaylist);
+    }
+}
+addingSongsToDom (); 
+addingPlaylistToDom ();
+
+
+/* END OF CREATING DOM */
