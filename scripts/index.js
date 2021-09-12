@@ -44,7 +44,13 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     let newElement = document.createElement(tagName);
     for (let child of children){
         let newChild;
-        newChild = document.createTextNode(child + "\n");
+        if (typeof(child) === "string" && child.includes("jpg")){
+            newChild = document.createElement("img");
+            newChild.classList.add("img");
+            newChild.setAttribute("src" , child);
+        } else {
+            newChild = document.createTextNode(child + " | \n");
+        }
         newElement.appendChild(newChild);
     }
     for (let clas of classes){
