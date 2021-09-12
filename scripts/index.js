@@ -12,8 +12,8 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = []
-    const classes = []
+    const children = [coverArt , title , album , artist , durationToMMSS(duration)];
+    const classes = ["song" , "box"];
     const attrs = { onclick: `playSong(${id})` }
     return createElement("div", children, classes, attrs)
 }
@@ -41,7 +41,33 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+    let newElement = document.createElement(tagName);
+    for (let child of children){
+        let newChild;
+        newChild = document.createTextNode(child + "\n");
+        newElement.appendChild(newChild);
+    }
+    for (let clas of classes){
+        newElement.classList.add(clas);
+    }
+    for (let attribute in attributes){
+        newElement.setAttribute(attribute , attributes.attribute)
+    }
+    return newElement;
 }
 
-// You can write more code below this line
+/*START OF ASSIST FUNCTIONS*/
+// Converts the duration from seconds to "mm: ss"
+function durationToMMSS (duration){
+    let durationMinutes = Math.floor(duration/60);
+    let durationSeconds = duration % 60;
+    if (durationMinutes < 10){
+        durationMinutes =  "0" + durationMinutes;
+    }
+    if (durationSeconds < 10){
+        durationSeconds = "0" + durationSeconds;
+    }
+    return durationMinutes + ":" + durationSeconds;
+}
+/*END OF ASSIST FUNCTIONS*/
+
