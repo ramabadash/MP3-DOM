@@ -1,17 +1,20 @@
+"use strict"
+/* START OF MAIN FUNCTIONS */
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
- *
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
     const notPlayingSong= document.getElementsByClassName("playing");
+    //rempve the last song playing
     if (notPlayingSong.length > 0){
         notPlayingSong[0].classList.remove("playing");
     }
+    //play the song
     const playingSong= document.getElementById(songId);
     playingSong.classList.add("playing");
-}
+  }
 
 /**
  * Creates a song DOM element based on a song object.
@@ -35,9 +38,6 @@ function createPlaylistElement({ id, name, songs }) {
 
 /**
  * Creates a new DOM element.
- *
- * Example usage:
- * createElement("div", ["just text", createElement(...)], ["nana", "banana"], {id: "bla"})
  *
  * @param {String} tagName - the type of the element
  * @param {Array} children - the child elements for the new element.
@@ -71,6 +71,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     }
     return newElement;
 }
+/* END OF MAIN FUNCTIONS */
 
 /*START OF ASSIST FUNCTIONS*/
 // Converts the duration from seconds to "mm: ss"
@@ -118,27 +119,28 @@ function playlistDuration(id) {
     return undefined;
   }
   
+  function addingSongsToDom (){
+      let songs = document.getElementById("songs");
+      const sortSongsArray = player.songs.slice().sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
+      for (let song of sortSongsArray){
+          let newSong = createSongElement(song);
+          songs.appendChild(newSong);
+      }
+  }
+  
+  function addingPlaylistToDom (){
+      let playlists = document.getElementById("playlists");
+      const sortPlaylistArray = player.playlists.slice().sort((playlist1 , playlist2) => { return playlist1.name > playlist2.name ? 1 : -1});
+      for (let playlist of sortPlaylistArray){
+          let newPlaylist = createPlaylistElement(playlist);
+          playlists.appendChild(newPlaylist);
+      }
+  }
 /*END OF ASSIST FUNCTIONS*/
-/* START OF CREATING DOM */
-function addingSongsToDom (){
-    let songs = document.getElementById("songs");
-    const sortSongsArray = player.songs.slice().sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
-    for (let song of sortSongsArray){
-        let newSong = createSongElement(song);
-        songs.appendChild(newSong);
-    }
-}
 
-function addingPlaylistToDom (){
-    let playlists = document.getElementById("playlists");
-    const sortPlaylistArray = player.playlists.slice().sort((playlist1 , playlist2) => { return playlist1.name > playlist2.name ? 1 : -1});
-    for (let playlist of sortPlaylistArray){
-        let newPlaylist = createPlaylistElement(playlist);
-        playlists.appendChild(newPlaylist);
-    }
-}
+/* START OF CREATING DOM */
+
 addingSongsToDom (); 
 addingPlaylistToDom ();
-
 
 /* END OF CREATING DOM */

@@ -2,6 +2,7 @@
     font-family: fantasy;
     font-size: 20px;
     background-color: darkseagreen;
+    text-align:center;
 }
 /*HEADRS*/
 h1 {
@@ -40,10 +41,19 @@ h2 {
     height: 100%;
     width: 20%;
     float: left;
+    display:inline-flexbox;
+    margin: 5px;;
+    border-width: 2px;
+    border-style: solid;
+    border-color: lavenderblush;
+    border-radius: 5px;
 }
 
 .text {
-    background-color:silver;  
+    background-color:silver; 
+    width: 50%; 
+    text-align: left;
+    margin-left: 20%;
 }
 
 .playing {
@@ -51,4 +61,4 @@ h2 {
     border-width: 10px;
     border-style: solid;
 }
-/*PLAYLISTS*/
+
