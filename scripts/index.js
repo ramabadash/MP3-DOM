@@ -5,7 +5,12 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    const notPlayingSong= document.getElementsByClassName("playing");
+    if (notPlayingSong.length > 0){
+        notPlayingSong[0].classList.remove("playing");
+    }
+    const playingSong= document.getElementById(songId);
+    playingSong.classList.add("playing");
 }
 
 /**
@@ -13,8 +18,8 @@ function playSong(songId) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [coverArt , title , album , artist , durationToMMSS(duration)];
-    const classes = ["song" , "box"];
-    const attrs = { onclick: `playSong(${id})` };
+    const classes = ["song" , "box" ];
+    const attrs = {onclick: `playSong(${id})` , id : id };
     return createElement("div", children, classes, attrs);
 }
 
@@ -58,8 +63,11 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     for (let clas of classes){
         newElement.classList.add(clas);
     }
-    for (let attribute in attributes){
-        newElement.setAttribute(attribute , attributes.attribute)
+    const seperateKeys = Object.keys(attributes);
+    const seperateValues =Object.values(attributes);
+    for (let i = 0; i < seperateKeys.length; i++)
+    {
+        newElement.setAttribute(seperateKeys[i],seperateValues[i]);
     }
     return newElement;
 }
