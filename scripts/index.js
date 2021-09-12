@@ -14,18 +14,18 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [coverArt , title , album , artist , durationToMMSS(duration)];
     const classes = ["song" , "box"];
-    const attrs = { onclick: `playSong(${id})` }
-    return createElement("div", children, classes, attrs)
+    const attrs = { onclick: `playSong(${id})` };
+    return createElement("div", children, classes, attrs);
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children = [id , name , songs]
-    const classes = ["playlist" , "box"]
-    const attrs = {}
-    return createElement("div", children, classes, attrs)
+    const children = [name , songs.length , playlistDuration(id)];
+    const classes = ["playlist" , "box"];
+    const attrs = {};
+    return createElement("div", children, classes, attrs);
 }
 
 /**
@@ -69,5 +69,37 @@ function durationToMMSS (duration){
     }
     return durationMinutes + ":" + durationSeconds;
 }
-/*END OF ASSIST FUNCTIONS*/
-
+//The function receives a playlist id and returns the total duration of the playlist in "mm: ss" format
+function playlistDuration(id) {
+    let playlistLocation = getPlaylistLocationByID(id);
+    if (playlistLocation === undefined){
+      return new Error ("Error - Can't find playlist");
+    }
+    let playlistSongsArray = player.playlists[playlistLocation].songs;
+    let totalDuration = 0;
+    for (let songID of playlistSongsArray){
+      let song = getSongByID(songID)
+      totalDuration += song.duration;
+    }
+    return durationToMMSS(totalDuration);
+  }
+//The function receives a song id and returns a matching song object
+  function getSongByID (id) {
+    for (let song of player.songs){
+      if (song.id === id){
+        return song;
+      }
+    }
+    return undefined;
+  }
+// The function receives a playlist id and returns its place in the player.playlists array
+  function getPlaylistLocationByID (id) {
+    for (let i = 0; i < player.playlists.length ; i++){
+      if (player.playlists[i].id === id){
+        return i;
+      }
+    }
+    return undefined;
+  }
+  
+  /*END OF ASSIST FUNCTIONS*/
