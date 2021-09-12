@@ -49,7 +49,9 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
             newChild.classList.add("img");
             newChild.setAttribute("src" , child);
         } else {
-            newChild = document.createTextNode(child + " | \n");
+            newChild = document.createElement("p");
+            newChild.textContent = child;
+            newChild.classList.add("text");
         }
         newElement.appendChild(newChild);
     }
