@@ -36,6 +36,13 @@ h2 {
     background-color:silver;
 }
 
+.text {
+    background-color:silver; 
+    width: 50%; 
+    text-align: left;
+    margin-left: 20%;
+}
+
 /*SONGS*/
 .img {
     height: 100%;
@@ -49,12 +56,6 @@ h2 {
     border-radius: 5px;
 }
 
-.text {
-    background-color:silver; 
-    width: 50%; 
-    text-align: left;
-    margin-left: 20%;
-}
 
 .playing {
     border: green;

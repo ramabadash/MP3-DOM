@@ -6,23 +6,34 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
+    //remove the last song playing
     const notPlayingSong= document.getElementsByClassName("playing");
-    //rempve the last song playing
     if (notPlayingSong.length > 0){
         notPlayingSong[0].classList.remove("playing");
     }
     //play the song
-    const playingSong= document.getElementById(songId);
+    let playingSong= document.getElementById("song"+songId);
     playingSong.classList.add("playing");
-  }
+}
 
 /**
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = [coverArt , title , album , artist , durationToMMSS(duration)];
+  //creation spesific song elements
+    const coverArtElem = createElement("img" , [] , ["img"], {"src" : coverArt});
+    const titleElem = createElement("p" , [] , ["text" , "title"], {});
+    titleElem.textContent = title;
+    const albumElem = createElement("p" , [] , ["text" , "album"], {});
+    albumElem.textContent = album;
+    const artistElem = createElement("p" , [] , ["text" , "artist"], {});
+    artistElem.textContent = artist;
+    const durationElem = createElement("p" , [] , ["text" , "duration"], {});
+    durationElem.textContent = durationToMMSS(duration);
+  //insert them into song
+    const children = [coverArtElem , titleElem , albumElem , artistElem , durationElem];
     const classes = ["song" , "box" ];
-    const attrs = {onclick: `playSong(${id})` , id : id };
+    const attrs = {onclick: `playSong(${id})` , id: `song${id}` }; 
     return createElement("div", children, classes, attrs);
 }
 
@@ -30,9 +41,17 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children = [name , songs.length , playlistDuration(id)];
+  //creation spesific playlist elements
+    const nameElem = createElement("p" , [] , ["text" , "name"], {});
+    nameElem.textContent = name;
+    const numberOfSongsElem = createElement("p" , [] , ["text" , "songs"], {});
+    numberOfSongsElem.textContent = `${songs.length} songs`;
+    const playlistDurationElem = createElement("p" , [] , ["text" , "duration"], {});
+    playlistDurationElem.textContent = playlistDuration(id);
+  //insert them into playlist
+    const children = [nameElem , numberOfSongsElem, playlistDurationElem];
     const classes = ["playlist" , "box"];
-    const attrs = {};
+    const attrs = {id : "playlist"+id};
     return createElement("div", children, classes, attrs);
 }
 
@@ -47,22 +66,15 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     let newElement = document.createElement(tagName);
+    //children
     for (let child of children){
-        let newChild;
-        if (typeof(child) === "string" && child.includes("jpg")){
-            newChild = document.createElement("img");
-            newChild.classList.add("img");
-            newChild.setAttribute("src" , child);
-        } else {
-            newChild = document.createElement("p");
-            newChild.textContent = child;
-            newChild.classList.add("text");
-        }
-        newElement.appendChild(newChild);
+        newElement.append(child);
     }
+    //classes
     for (let clas of classes){
         newElement.classList.add(clas);
     }
+    //attributes
     const seperateKeys = Object.keys(attributes);
     const seperateValues =Object.values(attributes);
     for (let i = 0; i < seperateKeys.length; i++)
