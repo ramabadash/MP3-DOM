@@ -14,13 +14,17 @@ function playSong(songId) {
     //play the song
     let playingSong= document.getElementById("song"+songId);
     playingSong.classList.add("playing");
+    //move to next song
+    let thisSongDuration = getSongByID(songId).duration;
+    setTimeout(() => nextSong(playingSong) , thisSongDuration *1000);
 }
+
 
 /**
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-  //creation spesific song elements
+    //creation spesific song elements
     const coverArtElem = createElement("img" , [] , ["img"], {"src" : coverArt});
     const titleElem = createElement("p" , [] , ["text" , "title"], {});
     titleElem.textContent = title;
@@ -30,7 +34,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     artistElem.textContent = artist;
     const durationElem = createElement("p" , [] , ["text" , "duration"], {});
     durationElem.textContent = durationToMMSS(duration);
-  //insert them into song
+    //insert them into song
     const children = [coverArtElem , titleElem , albumElem , artistElem , durationElem];
     const classes = ["song" , "box" ];
     const attrs = {onclick: `playSong(${id})` , id: `song${id}` }; 
@@ -41,14 +45,14 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-  //creation spesific playlist elements
+    //creation spesific playlist elements
     const nameElem = createElement("p" , [] , ["text" , "name"], {});
     nameElem.textContent = name;
     const numberOfSongsElem = createElement("p" , [] , ["text" , "songs"], {});
     numberOfSongsElem.textContent = `${songs.length} songs`;
     const playlistDurationElem = createElement("p" , [] , ["text" , "duration"], {});
     playlistDurationElem.textContent = playlistDuration(id);
-  //insert them into playlist
+    //insert them into playlist
     const children = [nameElem , numberOfSongsElem, playlistDurationElem];
     const classes = ["playlist" , "box"];
     const attrs = {id : "playlist"+id};
@@ -86,6 +90,19 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 /* END OF MAIN FUNCTIONS */
 
 /*START OF ASSIST FUNCTIONS*/
+//play the next songs after the song we clicked on
+function nextSong(playingSong){
+    playingSong.classList.remove("playing"); //remove the last song playing
+    if (playingSong.nextSibling !== null){
+        playingSong.nextSibling.classList.add("playing");
+        playingSong = document.getElementsByClassName("playing")[0]; //playingSong = next song on the list
+        let songId = playingSong.id[playingSong.id.length - 1]*1; //create ID number by removing the word song from the id
+        let thisSongDuration = getSongByID(songId).duration;
+        setTimeout(() => nextSong(playingSong) , thisSongDuration*1000);
+    } else {
+        alert("out of songs");
+    }
+}
 // Converts the duration from seconds to "mm: ss"
 function durationToMMSS (duration){
     let durationMinutes = Math.floor(duration/60);
@@ -102,20 +119,20 @@ function durationToMMSS (duration){
 function playlistDuration(id) {
     let playlistLocation = getPlaylistLocationByID(id);
     if (playlistLocation === undefined){
-      return new Error ("Error - Can't find playlist");
+        return new Error ("Error - Can't find playlist");
     }
     let playlistSongsArray = player.playlists[playlistLocation].songs;
     let totalDuration = 0;
     for (let songID of playlistSongsArray){
-      let song = getSongByID(songID)
-      totalDuration += song.duration;
+        let song = getSongByID(songID)
+        totalDuration += song.duration;
     }
     return durationToMMSS(totalDuration);
-  }
+}
 //The function receives a song id and returns a matching song object
-  function getSongByID (id) {
+function getSongByID (id) {
     for (let song of player.songs){
-      if (song.id === id){
+        if (song.id === id){
         return song;
       }
     }
