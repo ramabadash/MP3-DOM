@@ -86,7 +86,7 @@ function reservedID (key){
   function findAvailableID (key , id) {
     const arrayOfID = reservedID(key);
     if (id === undefined){ // if id was omitted - create new id
-      for (let i = 0 ; i < arrayOfID.length; i++){
+      for (let i = 0 ; i <= arrayOfID.length; i++){
         if (i+1 !== arrayOfID[i]){ //uses i+1 for ID bigger then 0.
           return i+1;
         }

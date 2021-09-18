@@ -47,14 +47,8 @@ function playSong(songId) {
 /**
  * Adds a song to the player, and updates the DOM to match.
  */
-function addSong() {
-    //getting information from inputs
-    let title = document.getElementsByName("title")[0].value;
-    let album = document.getElementsByName("album")[0].value;
-    let artist = document.getElementsByName("artist")[0].value;
-    let duration = document.getElementsByName("duration")[0].value;
+function addSong({ title, album, artist, duration, coverArt }) {
     let newID = findAvailableID ("songs");
-    let coverArt = document.getElementsByName("cover-art")[0].value;
     let newSong = {"id" :newID, title, album, artist, "duration" : durationFromMMSS(duration), coverArt};
     //adding and re-sorting player.song array
     player.songs.push(newSong);
@@ -64,7 +58,6 @@ function addSong() {
     const songs = document.getElementById("songs");
     songs.childNodes[songIndex+3].insertAdjacentElement("beforebegin", createSongElement(newSong));
 }
-
 /**
  * Acts on a click event on an element inside the songs list.
  * Should handle clicks on play buttons and remove buttons of songs.
@@ -90,7 +83,13 @@ function handleSongClickEvent(event) {
  * @param {MouseEvent} event - the click event
  */
 function handleAddSongEvent(event) {
-    addSong();
+    //getting information from inputs
+    let title = document.getElementsByName("title")[0].value;
+    let album = document.getElementsByName("album")[0].value;
+    let artist = document.getElementsByName("artist")[0].value;
+    let duration = document.getElementsByName("duration")[0].value;
+    let coverArt = document.getElementsByName("cover-art")[0].value;
+    addSong({ title, album, artist, duration, coverArt });
 }
 
 /**
