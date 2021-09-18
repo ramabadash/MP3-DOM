@@ -100,13 +100,13 @@ function handleAddSongEvent(event) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     //creation spesific song elements
     const coverArtElem = createElement("img", [], ["img"], {"src" : coverArt});
-    const titleElem = createElement("p", [], ["text", "title"], {});
+    const titleElem = createElement("span", [], ["text", "title"], {});
     titleElem.textContent = title;
-    const albumElem = createElement("p", [], ["text", "album"], {});
+    const albumElem = createElement("span", [], ["text", "album"], {});
     albumElem.textContent = album;
-    const artistElem = createElement("p", [], ["text", "artist"], {});
+    const artistElem = createElement("span", [], ["text", "artist"], {});
     artistElem.textContent = artist;
-    const durationElem = createElement("p", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
+    const durationElem = createElement("span", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
     durationElem.textContent = durationToMMSS(duration);
     const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
     const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
@@ -123,11 +123,11 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  */
 function createPlaylistElement({ id, name, songs }) {
     //creation spesific playlist elements
-    const nameElem = createElement("p", [], ["text", "name"], {});
+    const nameElem = createElement("span", [], ["text", "name"], {});
     nameElem.textContent = name;
-    const numberOfSongsElem = createElement("p", [], ["text", "songs"], {});
+    const numberOfSongsElem = createElement("span", [], ["text", "songs"], {});
     numberOfSongsElem.textContent = `${songs.length} songs`;
-    const playlistDurationElem = createElement("p", [], ["text", "duration"], {});
+    const playlistDurationElem = createElement("span", [], ["text", "duration"], {});
     playlistDurationElem.textContent = playlistDuration(id);
     //insert them into playlist
     const children = [nameElem , numberOfSongsElem, playlistDurationElem];

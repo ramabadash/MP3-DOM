@@ -1,5 +1,5 @@
 * {
-    font-family: fantasy;
+    font-family: Gluten;
     font-size: 20px;
     background-color: darkseagreen;
     text-align:center;
@@ -13,21 +13,27 @@ h1 {
 
 h2 {
     font-size: 30px;
-    text-align:center;
+    text-align: center;
     text-shadow: 2px 2px rgb(87, 144, 93);
 }
 /*SONGS & PLAYLISTS*/
-#songs , #playlists {
+#songs , #playlists, #add-section {
+    /* display */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    /* text */
     text-align:center;
+    /* borders */
     border-color: black;
     border-width: 5px;
     border-style: solid;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.box {
+.box{
     border-color: gray;
     border-width: 5px;
     border-style: solid; 
@@ -37,18 +43,20 @@ h2 {
 }
 
 .text {
+    display: flex;
     background-color:silver; 
     width: 50%; 
     text-align: left;
-    margin-left: 20%;
+    margin: 2%;
 }
 
 /*SONGS*/
 .img {
-    height: 100%;
+
+    height: auto;
     width: 20%;
     float: left;
-    display:inline-flexbox;
+    display: inline-flex;
     margin: 5px;;
     border-width: 2px;
     border-style: solid;
@@ -63,24 +71,45 @@ h2 {
     border-style: solid;
 }
 
-.play {
-    width: 60px;
-    height: 60px;
+.play , .remove {
+    width: 50px;
+    height: 50px;
     border-style: solid;
     border-color: lavenderblush;
     border-radius: 10px;
     text-align: center;
-    background-color: green;
     margin: 5px;
+    float: right;
+    display: inline;
 }
 
 .remove {
-    width: 60px;
-    height: 60px;
-    border-style: solid;
-    border-color: lavenderblush;
-    border-radius: 10px;
-    text-align: center;
     background-color: maroon;
+}
+
+.play {
+    background-color: green;
+}
+
+/*ADD-SECTION*/
+#add-section {
+    margin: 10px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#inputs > input {
+    width: 20%;
+    background-color: silver;
+    color: black;
     margin: 5px;
+}
+
+#add-section > button {
+    width: 20%;
+    margin: 5px;
+    background-color: silver;
+    color: black;
+    float: right;
 }
