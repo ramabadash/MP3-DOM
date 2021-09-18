@@ -109,7 +109,18 @@ function reservedID (key){
       }
     } 
   }
-  
+
+  //Duration color scale -Less than 2 min = green - Above 7 min = completely red.
+  function durationColorScale (duration) {
+      const maxDuration = 7 * 60; //7 min
+      const minDuration = 2 * 60; //2 min
+      const scale = 255 / (maxDuration - minDuration) ; // 255 = highest value on rgb(,,)
+      if (duration > maxDuration) duration = maxDuration;
+      if (duration < minDuration) duration = minDuration;
+      let colorUnit = Math.floor((duration - minDuration) * scale);
+      return `rgb(${colorUnit},${255-colorUnit},0)`;
+  }
+
   function addingSongsToDom (){
       let songs = document.getElementById("songs");
       const sortSongsArray = player.songs.slice().sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});

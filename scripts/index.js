@@ -105,7 +105,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     albumElem.textContent = album;
     const artistElem = createElement("p" , [] , ["text" , "artist"], {});
     artistElem.textContent = artist;
-    const durationElem = createElement("p" , [] , ["text" , "duration"], {});
+    const durationElem = createElement("p" , [] , ["text" , "duration"], {"style" : `color: ${durationColorScale(duration)}`});
     durationElem.textContent = durationToMMSS(duration);
     const playElem = createElement("input" , [] , ["play"], {"type" : "button" , "value": "▶"});
     const removeElem = createElement("input" , [] , ["remove"], {"type" : "button" , "value": "🗑️"});
