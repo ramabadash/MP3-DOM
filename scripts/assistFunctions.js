@@ -6,7 +6,7 @@ function nextSong(playingSong){
     if (playingSong.nextSibling !== null){
         playingSong.nextSibling.classList.add("playing");
         playingSong = document.getElementsByClassName("playing")[0]; //playingSong = next song on the list
-        let songId = playingSong.id[playingSong.id.length - 1]*1; //create ID number by removing the word song from the id
+        let songId = Number(playingSong.id[playingSong.id.length - 1]); //create ID number by removing the word song from the id
         let thisSongDuration = getSongByID(songId).duration;
         setTimeout(() => nextSong(playingSong) , thisSongDuration*1000);
     } else {
@@ -55,15 +55,15 @@ function getSongByID (id) {
     }
     return undefined;
   }
-
-  function getSongLocationByID (id) {
+//The function receives a song id and returns its place in the player.songs array
+function getSongLocationByID (id) {
     for (let i = 0; i < player.songs.length ; i++){
-      if (player.songs[i].id === id){
-        return i;
-      }
+        if (player.songs[i].id === id){
+            return i;
+        }
     }
     return undefined;
-  }
+}
 // The function receives a playlist id and returns its place in the player.playlists array
   function getPlaylistLocationByID (id) {
     for (let i = 0; i < player.playlists.length ; i++){
@@ -73,68 +73,66 @@ function getSongByID (id) {
     }
     return undefined;
   }
-  // create an array of the reserved ID's sort him and return the array
+// create an array of the reserved ID's sort him and return the array
 function reservedID (key){
     const arrayOfID = [];
     for (let obj of player[key]){
-      arrayOfID.push(obj["id"]);
+        arrayOfID.push(obj["id"]);
     }
     arrayOfID.sort((a,b)=>a-b);
     return arrayOfID;
-  }
-  //serach in "songs" or "playlists" (key) if the id is available if not create new one. 
-  function findAvailableID (key , id) {
+}
+//serach in "songs" or "playlists" (key) if the id is available if not create new one. 
+function findAvailableID (key , id) {
     const arrayOfID = reservedID(key);
     if (id === undefined){ // if id was omitted - create new id
-      for (let i = 0 ; i <= arrayOfID.length; i++){
-        if (i+1 !== arrayOfID[i]){ //uses i+1 for ID bigger then 0.
-          return i+1;
+        for (let i = 0 ; i <= arrayOfID.length; i++){
+            if (i+1 !== arrayOfID[i]){ //uses i+1 for ID bigger then 0.
+            return i+1;
+            }
         }
-      }
     } else { // if id was sent - cheks if available - if not return undefined
-      for (let value of arrayOfID){
-        if (value === id){
-          return undefined;
-        }
+        for (let value of arrayOfID){
+            if (value === id){
+                return undefined;}
       }
       return id;
     } 
-  }
-
-  function removeSongFromPlaylist(songId , index){
+}
+//The function gets song playlist song id and index and deletes it from the playlist
+function removeSongFromPlaylist(songId , index){
     const songsArray = player.playlists[index].songs;
     for (let j = 0; j < songsArray.length; j++){
-      if (songsArray[j] === songId){
-        songsArray.splice(j, 1);
-      }
+        if (songsArray[j] === songId){
+            songsArray.splice(j, 1);
+        }
     } 
-  }
-
-  //Duration color scale -Less than 2 min = green - Above 7 min = completely red.
-  function durationColorScale (duration) {
-      const maxDuration = 7 * 60; //7 min
-      const minDuration = 2 * 60; //2 min
-      const scale = 255 / (maxDuration - minDuration) ; // 255 = highest value on rgb(,,)
-      if (duration > maxDuration) duration = maxDuration;
-      if (duration < minDuration) duration = minDuration;
-      let colorUnit = Math.floor((duration - minDuration) * scale);
-      return `rgb(${colorUnit},${255-colorUnit},0)`;
-  }
-
-  function addingSongsToDom (){
-      let songs = document.getElementById("songs");
-      const sortSongsArray = player.songs.slice().sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
-      for (let song of sortSongsArray){
-          let newSong = createSongElement(song);
-          songs.appendChild(newSong);
-      }
-  }
-  
-  function addingPlaylistToDom (){
-      let playlists = document.getElementById("playlists");
-      const sortPlaylistArray = player.playlists.slice().sort((playlist1 , playlist2) => { return playlist1.name > playlist2.name ? 1 : -1});
-      for (let playlist of sortPlaylistArray){
-          let newPlaylist = createPlaylistElement(playlist);
-          playlists.appendChild(newPlaylist);
-      }
-  }
+}
+//Duration color scale -Less than 2 min = green - Above 7 min = completely red.
+function durationColorScale (duration) {
+    const maxDuration = 7 * 60; //7 min
+    const minDuration = 2 * 60; //2 min
+    const scale = 255 / (maxDuration - minDuration) ; // 255 = highest value on rgb(,,)
+    if (duration > maxDuration) duration = maxDuration;
+    if (duration < minDuration) duration = minDuration;
+    let colorUnit = Math.floor((duration - minDuration) * scale);
+    return `rgb(${colorUnit},${255-colorUnit},0)`;
+}
+//The function produces elements for each song in player songs and add them as children of the div songs
+function addingSongsToDom (){
+    let songs = document.getElementById("songs");
+    player.songs.sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
+    for (let song of player.songs){
+        let newSong = createSongElement(song);
+        songs.appendChild(newSong);
+    }
+}
+// The function produces elements for each playlist in player playlists and add them as children of the div playlists
+function addingPlaylistToDom (){
+    let playlists = document.getElementById("playlists");
+    player.playlists.sort((playlist1 , playlist2) => { return playlist1.name > playlist2.name ? 1 : -1});
+    for (let playlist of player.playlists){
+        let newPlaylist = createPlaylistElement(playlist);
+        playlists.appendChild(newPlaylist);
+    }
+}

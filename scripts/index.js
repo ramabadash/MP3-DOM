@@ -100,15 +100,21 @@ function handleAddSongEvent(event) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     //creation spesific song elements
     const coverArtElem = createElement("img", [], ["img"], {"src" : coverArt});
+
     const titleElem = createElement("span", [], ["text", "title"], {});
     titleElem.textContent = title;
+    
     const albumElem = createElement("span", [], ["text", "album"], {});
     albumElem.textContent = album;
+
     const artistElem = createElement("span", [], ["text", "artist"], {});
     artistElem.textContent = artist;
+
     const durationElem = createElement("span", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
     durationElem.textContent = durationToMMSS(duration);
+
     const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
+    
     const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
     //insert them into song
     const children = [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
