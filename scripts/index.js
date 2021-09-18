@@ -19,6 +19,40 @@ function playSong(songId) {
     setTimeout(() => nextSong(playingSong) , thisSongDuration *1000);
 }
 
+/**
+ * Removes a song from the player, and updates the DOM to match.
+ *
+ * @param {Number} songId - the ID of the song to remove
+ */
+ function removeSong(songId) {
+    // Your code here
+}
+
+/**
+ * Adds a song to the player, and updates the DOM to match.
+ */
+function addSong({ title, album, artist, duration, coverArt }) {
+    // Your code here
+}
+
+/**
+ * Acts on a click event on an element inside the songs list.
+ * Should handle clicks on play buttons and remove buttons of songs.
+ *
+ * @param {MouseEvent} event - the click event
+ */
+function handleSongClickEvent(event) {
+    // Your code here
+}
+
+/**
+ * Handles a click event on the button that adds songs.
+ *
+ * @param {MouseEvent} event - the click event
+ */
+function handleAddSongEvent(event) {
+    // Your code here
+}
 
 /**
  * Creates a song DOM element based on a song object.
@@ -38,7 +72,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [coverArtElem , titleElem , albumElem , artistElem , durationElem];
     const classes = ["song" , "box" ];
     const attrs = {onclick: `playSong(${id})` , id: `song${id}` }; 
-    return createElement("div", children, classes, attrs);
+    const eventListeners = {};
+    return createElement("div", children, classes, attrs, eventListeners);
 }
 
 /**
@@ -56,7 +91,8 @@ function createPlaylistElement({ id, name, songs }) {
     const children = [nameElem , numberOfSongsElem, playlistDurationElem];
     const classes = ["playlist" , "box"];
     const attrs = {id : "playlist"+id};
-    return createElement("div", children, classes, attrs);
+    const eventListeners = {};
+    return createElement("div", children, classes, attrs, eventListeners);
 }
 
 /**
@@ -67,8 +103,9 @@ function createPlaylistElement({ id, name, songs }) {
  *                           Each child can be a DOM element, or a string (if you just want a text element).
  * @param {Array} classes - the class list of the new element
  * @param {Object} attributes - the attributes for the new element
+ * @param {Object} eventListeners - the event listeners on the element
  */
-function createElement(tagName, children = [], classes = [], attributes = {}) {
+function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
     let newElement = document.createElement(tagName);
     //children
     for (let child of children){
@@ -172,4 +209,6 @@ function getSongByID (id) {
 addingSongsToDom (); 
 addingPlaylistToDom ();
 
+// Making the add-song-button actually do something
+document.getElementById("add-button").addEventListener("click", handleAddSongEvent);
 /* END OF CREATING DOM */
