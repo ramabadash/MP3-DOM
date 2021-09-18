@@ -25,7 +25,23 @@ function playSong(songId) {
  * @param {Number} songId - the ID of the song to remove
  */
  function removeSong(songId) {
-    // Your code here
+     //remove from songs on DOM
+    document.getElementById(`song${songId}`).remove();
+    //remove from player.songs array
+    let songIndex = getSongLocationByID(songId);
+    player.songs.splice(songIndex, 1);
+    //update palyer.playlists && playlists in DOM
+    for (let i = 0; i < player.playlists.length; i++){
+        if (player.playlists[i].songs.includes(songId)){
+            removeSongFromPlaylist(songId , i);
+          }
+        let currrentId = player.playlists[i].id;
+        let playlistElem = document.getElementById(`playlist${currrentId}`).childNodes;
+        let numOfSongs = player.playlists[i].songs.length;
+        playlistElem[1].textContent = `${numOfSongs} songs`;
+        let playlistDuration = playlistDuration(currrentId);
+        playlistElem[2].textContent = playlistDuration;
+    }
 }
 
 /**
@@ -201,6 +217,15 @@ function getSongByID (id) {
     }
     return undefined;
   }
+
+  function getSongLocationByID (id) {
+    for (let i = 0; i < player.songs.length ; i++){
+      if (player.songs[i].id === id){
+        return i;
+      }
+    }
+    return undefined;
+  }
 // The function receives a playlist id and returns its place in the player.playlists array
   function getPlaylistLocationByID (id) {
     for (let i = 0; i < player.playlists.length ; i++){
@@ -235,6 +260,15 @@ function reservedID (key){
         }
       }
       return id;
+    } 
+  }
+
+  function removeSongFromPlaylist(songId , index){
+    const songsArray = player.playlists[index].songs;
+    for (let j = 0; j < songsArray.length; j++){
+      if (songsArray[j] === songId){
+        songsArray.splice(j, 1);
+      }
     } 
   }
   
