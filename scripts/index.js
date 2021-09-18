@@ -51,7 +51,15 @@ function handleSongClickEvent(event) {
  * @param {MouseEvent} event - the click event
  */
 function handleAddSongEvent(event) {
-    // Your code here
+    let title = document.getElementsByName("title")[0].value;
+    let album = document.getElementsByName("album")[0].value;
+    let artist = document.getElementsByName("artist")[0].value;
+    let duration = document.getElementsByName("duration")[0].value;
+    let coverArt = document.getElementsByName("cover-art")[0].value;
+    let newID = findAvailableID ("songs");
+    let newSong = {"id" :newID, title, album, artist, "duration" : durationFromMMSS(duration), coverArt};
+    player.songs.push(newSong);
+    songs.append(createSongElement(newSong));
 }
 
 /**
@@ -152,6 +160,13 @@ function durationToMMSS (duration){
     }
     return durationMinutes + ":" + durationSeconds;
 }
+//convert duretion from String - "mm:ss" to Number -seconds.
+function durationFromMMSS(duration) {
+    const splitDuration = duration.split(":");
+    let durationMinutes = splitDuration[0]; 
+    let durationSeconds = splitDuration[1];
+    return durationMinutes*60 + durationSeconds*1;
+  }
 //The function receives a playlist id and returns the total duration of the playlist in "mm: ss" format
 function playlistDuration(id) {
     let playlistLocation = getPlaylistLocationByID(id);
@@ -183,6 +198,33 @@ function getSongByID (id) {
       }
     }
     return undefined;
+  }
+  // create an array of the reserved ID's sort him and return the array
+function reservedID (key){
+    const arrayOfID = [];
+    for (let obj of player[key]){
+      arrayOfID.push(obj["id"]);
+    }
+    arrayOfID.sort((a,b)=>a-b);
+    return arrayOfID;
+  }
+  //serach in "songs" or "playlists" (key) if the id is available if not create new one. 
+  function findAvailableID (key , id) {
+    const arrayOfID = reservedID(key);
+    if (id === undefined){ // if id was omitted - create new id
+      for (let i = 0 ; i < arrayOfID.length; i++){
+        if (i+1 !== arrayOfID[i]){ //uses i+1 for ID bigger then 0.
+          return i+1;
+        }
+      }
+    } else { // if id was sent - cheks if available - if not return undefined
+      for (let value of arrayOfID){
+        if (value === id){
+          return undefined;
+        }
+      }
+      return id;
+    } 
   }
   
   function addingSongsToDom (){
