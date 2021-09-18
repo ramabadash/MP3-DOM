@@ -63,3 +63,24 @@ h2 {
     border-style: solid;
 }
 
+.play {
+    width: 60px;
+    height: 60px;
+    border-style: solid;
+    border-color: lavenderblush;
+    border-radius: 10px;
+    text-align: center;
+    background-color: green;
+    margin: 5px;
+}
+
+.remove {
+    width: 60px;
+    height: 60px;
+    border-style: solid;
+    border-color: lavenderblush;
+    border-radius: 10px;
+    text-align: center;
+    background-color: maroon;
+    margin: 5px;
+}
