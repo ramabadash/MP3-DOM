@@ -51,7 +51,7 @@ function playSong(songId) {
  */
 function addSong({ title, album, artist, duration, coverArt }) {
     let newID = findAvailableID ("songs");
-    let newSong = {"id" :newID, title, album, artist, "duration" : durationFromMMSS(duration), coverArt};
+    let newSong = {"id": newID, title, album, artist, "duration": durationFromMMSS(duration), coverArt};
     //adding and re-sorting player.song array
     player.songs.push(newSong);
     player.songs.sort((song1 , song2) => { return song1.title > song2.title ? 1 : -1});
@@ -99,20 +99,20 @@ function handleAddSongEvent(event) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     //creation spesific song elements
-    const coverArtElem = createElement("img" , [] , ["img"], {"src" : coverArt});
-    const titleElem = createElement("p" , [] , ["text" , "title"], {});
+    const coverArtElem = createElement("img", [], ["img"], {"src" : coverArt});
+    const titleElem = createElement("p", [], ["text", "title"], {});
     titleElem.textContent = title;
-    const albumElem = createElement("p" , [] , ["text" , "album"], {});
+    const albumElem = createElement("p", [], ["text", "album"], {});
     albumElem.textContent = album;
-    const artistElem = createElement("p" , [] , ["text" , "artist"], {});
+    const artistElem = createElement("p", [], ["text", "artist"], {});
     artistElem.textContent = artist;
-    const durationElem = createElement("p" , [] , ["text" , "duration"], {"style" : `color: ${durationColorScale(duration)}`});
+    const durationElem = createElement("p", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
     durationElem.textContent = durationToMMSS(duration);
-    const playElem = createElement("input" , [] , ["play"], {"type" : "button" , "value": "▶"});
-    const removeElem = createElement("input" , [] , ["remove"], {"type" : "button" , "value": "🗑️"});
+    const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
+    const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
     //insert them into song
-    const children = [coverArtElem , titleElem , albumElem , artistElem , durationElem, playElem, removeElem];
-    const classes = ["song" , "box" ];
+    const children = [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
+    const classes = ["song", "box" ];
     const attrs = {id: `song${id}` }; 
     const eventListeners = {};
     return createElement("div", children, classes, attrs, eventListeners);
@@ -123,15 +123,15 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  */
 function createPlaylistElement({ id, name, songs }) {
     //creation spesific playlist elements
-    const nameElem = createElement("p" , [] , ["text" , "name"], {});
+    const nameElem = createElement("p", [], ["text", "name"], {});
     nameElem.textContent = name;
-    const numberOfSongsElem = createElement("p" , [] , ["text" , "songs"], {});
+    const numberOfSongsElem = createElement("p", [], ["text", "songs"], {});
     numberOfSongsElem.textContent = `${songs.length} songs`;
-    const playlistDurationElem = createElement("p" , [] , ["text" , "duration"], {});
+    const playlistDurationElem = createElement("p", [], ["text", "duration"], {});
     playlistDurationElem.textContent = playlistDuration(id);
     //insert them into playlist
     const children = [nameElem , numberOfSongsElem, playlistDurationElem];
-    const classes = ["playlist" , "box"];
+    const classes = ["playlist", "box"];
     const attrs = {id : "playlist"+id};
     const eventListeners = {};
     return createElement("div", children, classes, attrs, eventListeners);
