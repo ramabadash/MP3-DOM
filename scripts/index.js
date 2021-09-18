@@ -30,7 +30,7 @@ function playSong(songId) {
     //remove from player.songs array
     let songIndex = getSongLocationByID(songId);
     player.songs.splice(songIndex, 1);
-    //update palyer.playlists && playlists in DOM
+    //update player.playlists && playlists in DOM
     for (let i = 0; i < player.playlists.length; i++){
         if (player.playlists[i].songs.includes(songId)){
             removeSongFromPlaylist(songId , i);
@@ -39,8 +39,10 @@ function playSong(songId) {
         let playlistElem = document.getElementById(`playlist${currrentId}`).childNodes;
         let numOfSongs = player.playlists[i].songs.length;
         playlistElem[1].textContent = `${numOfSongs} songs`;
-        let playlistDuration = playlistDuration(currrentId);
-        playlistElem[2].textContent = playlistDuration;
+
+        let newPlaylistDuration = playlistDuration(currrentId);
+        playlistElem[2].textContent = newPlaylistDuration;
+        player.playlists[i].duration = newPlaylistDuration;
     }
 }
 
