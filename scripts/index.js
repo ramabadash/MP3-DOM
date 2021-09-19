@@ -129,11 +129,16 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
         newElement.classList.add(clas);
     }
     //attributes
-    const seperateKeys = Object.keys(attributes);
-    const seperateValues =Object.values(attributes);
-    for (let i = 0; i < seperateKeys.length; i++)
-    {
-        newElement.setAttribute(seperateKeys[i],seperateValues[i]);
+    const attributesKeys = Object.keys(attributes);
+    const attributesValues =Object.values(attributes);
+    for (let i = 0; i < attributesKeys.length; i++){
+        newElement.setAttribute(attributesKeys[i],attributesValues[i]);
+    }
+    //eventListeners
+    const eventListenersKeys = Object.keys(eventListeners);
+    const eventListenersValues =Object.values(eventListeners);
+    for (let i = 0; i < eventListenersKeys.length; i++){
+        newElement.addEventListener(eventListenersKeys[i],eventListenersValues[i]);
     }
     return newElement;
 }
