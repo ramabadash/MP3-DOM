@@ -2,18 +2,35 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Awesome MP3 Player</title>
+        <title>Awesome MP3 Player - By RAMA</title>
         <link rel="shortcut icon" type="image/x-icon" href="./images/icon.png" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gluten:wght@300&display=swap">
         <link rel="stylesheet" href="./style.css">
         <script src="./scripts/player.js"></script>
+        <script src="./scripts/assistFunctions.js" defer></script>
         <script src="./scripts/index.js" defer></script>
     </head>
     <body>
+        <h1>MP3 Player</h1>
+        <h2>SONGS :</h2>
         <div id="songs">
             <!-- Generated songs go here -->
         </div>
+        <h2>PLAYLISTS :</h2>
         <div id="playlists">
             <!-- Generated playlists go here -->
         </div>
+        <div id="add-section">
+            <h2>Add a new song</h2>
+            <div id="inputs">
+                <input name="title" placeholder="Title">
+                <input name="album" placeholder="Album">
+                <input name="artist" placeholder="Artist">
+                <input name="duration" placeholder="Duration (mm:ss)">
+                <input name="cover-art" placeholder="Cover art link">
+            </div>
+            <button id="add-button">Add</button>
+        </div>
+        <footer>Thank you for listening</footer>
     </body>
 </html>
