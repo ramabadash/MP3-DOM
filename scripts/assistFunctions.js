@@ -118,6 +118,19 @@ function durationColorScale (duration) {
     let colorUnit = Math.floor((duration - minDuration) * scale);
     return `rgb(${colorUnit},${255-colorUnit},0)`;
 }
+//
+function updatePlaylist (index, songId){
+    removeSongFromPlaylist(songId , index);
+    //update songs and songs number
+    let currrentId = player.playlists[index].id;
+    let playlistElem = document.getElementById(`playlist${currrentId}`).childNodes;
+    let numOfSongs = player.playlists[index].songs.length;
+    playlistElem[1].textContent = `${numOfSongs} songs`;
+    //update duration
+    let newPlaylistDuration = playlistDuration(currrentId);
+    playlistElem[2].textContent = newPlaylistDuration;
+    player.playlists[index].duration = newPlaylistDuration;
+}
 //The function produces elements for each song in player songs and add them as children of the div songs
 function addingSongsToDom (){
     let songs = document.getElementById("songs");

@@ -33,16 +33,8 @@ function playSong(songId) {
     //update player.playlists && playlists in DOM
     for (let i = 0; i < player.playlists.length; i++){
         if (player.playlists[i].songs.includes(songId)){
-            removeSongFromPlaylist(songId , i);
-          }
-        let currrentId = player.playlists[i].id;
-        let playlistElem = document.getElementById(`playlist${currrentId}`).childNodes;
-        let numOfSongs = player.playlists[i].songs.length;
-        playlistElem[1].textContent = `${numOfSongs} songs`;
-
-        let newPlaylistDuration = playlistDuration(currrentId);
-        playlistElem[2].textContent = newPlaylistDuration;
-        player.playlists[i].duration = newPlaylistDuration;
+            updatePlaylist (i, songId);
+        }
     }
 }
 
@@ -114,7 +106,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     durationElem.textContent = durationToMMSS(duration);
 
     const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
-    
+
     const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
     //insert them into song
     const children = [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
