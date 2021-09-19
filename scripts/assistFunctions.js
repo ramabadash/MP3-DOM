@@ -152,6 +152,18 @@ function createSongChildren({ id, title, album, artist, duration, coverArt }) {
     const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
     return [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
 }
+//creation spesific playlist elements
+function createPlaylistChildren({ id, name, songs }){  
+    const nameElem = createElement("span", [], ["text", "name"], {});
+    nameElem.textContent = name;
+
+    const numberOfSongsElem = createElement("span", [], ["text", "songs"], {});
+    numberOfSongsElem.textContent = `${songs.length} songs`;
+
+    const playlistDurationElem = createElement("span", [], ["text", "duration"], {});
+    playlistDurationElem.textContent = playlistDuration(id);
+    return [nameElem , numberOfSongsElem, playlistDurationElem];
+}
 //The function produces elements for each song in player songs and add them as children of the div songs
 function addingSongsToDom (){
     let songs = document.getElementById("songs");
