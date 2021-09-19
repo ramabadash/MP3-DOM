@@ -7,9 +7,9 @@
  */
 function playSong(songId) {
     //remove the last song playing
-    const notPlayingSong= document.getElementsByClassName("playing");
-    if (notPlayingSong.length > 0){
-        notPlayingSong[0].classList.remove("playing");
+    let playingSongElement= document.getElementsByClassName("playing");
+    if (playingSongElement.length > 0){
+        playingSongElement[0].classList.remove("playing");
     }
     //play the song
     let playingSong= document.getElementById("song"+songId);

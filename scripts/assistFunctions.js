@@ -6,7 +6,7 @@ function nextSong(playingSong){
     if (playingSong.nextSibling !== null){
         playingSong.nextSibling.classList.add("playing");
         playingSong = document.getElementsByClassName("playing")[0]; //playingSong = next song on the list
-        let songId = Number(playingSong.id[playingSong.id.length - 1]); //create ID number by removing the word song from the id
+        let songId = Number(playingSong.id[playingSong.id.length - 1]); //create ID number by removing the word "song" from the element id
         let thisSongDuration = getSongByID(songId).duration;
         setTimeout(() => nextSong(playingSong) , thisSongDuration*1000);
     } else {
