@@ -131,6 +131,27 @@ function updatePlaylist (index, songId){
     playlistElem[2].textContent = newPlaylistDuration;
     player.playlists[index].duration = newPlaylistDuration;
 }
+//creation spesific song elements
+function createSongChildren({ id, title, album, artist, duration, coverArt }) {
+    const coverArtElem = createElement("img", [], ["img"], {"src" : coverArt});
+
+    const titleElem = createElement("span", [], ["text", "title"], {});
+    titleElem.textContent = title;
+        
+    const albumElem = createElement("span", [], ["text", "album"], {});
+    albumElem.textContent = album;
+    
+    const artistElem = createElement("span", [], ["text", "artist"], {});
+    artistElem.textContent = artist;
+    
+    const durationElem = createElement("span", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
+    durationElem.textContent = durationToMMSS(duration);
+    
+    const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
+    
+    const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
+    return [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
+}
 //The function produces elements for each song in player songs and add them as children of the div songs
 function addingSongsToDom (){
     let songs = document.getElementById("songs");

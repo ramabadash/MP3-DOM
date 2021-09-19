@@ -90,26 +90,7 @@ function handleAddSongEvent(event) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    //creation spesific song elements
-    const coverArtElem = createElement("img", [], ["img"], {"src" : coverArt});
-
-    const titleElem = createElement("span", [], ["text", "title"], {});
-    titleElem.textContent = title;
-    
-    const albumElem = createElement("span", [], ["text", "album"], {});
-    albumElem.textContent = album;
-
-    const artistElem = createElement("span", [], ["text", "artist"], {});
-    artistElem.textContent = artist;
-
-    const durationElem = createElement("span", [], ["text", "duration"], {"style": `color: ${durationColorScale(duration)}`});
-    durationElem.textContent = durationToMMSS(duration);
-
-    const playElem = createElement("input", [], ["play"], {"type": "button" , "value": "▶"});
-
-    const removeElem = createElement("input", [], ["remove"], {"type": "button" , "value": "🗑️"});
-    //insert them into song
-    const children = [coverArtElem, titleElem, albumElem, artistElem, durationElem, playElem, removeElem];
+    const children = createSongChildren({ id, title, album, artist, duration, coverArt }) ;
     const classes = ["song", "box" ];
     const attrs = {id: `song${id}` }; 
     const eventListeners = {};
